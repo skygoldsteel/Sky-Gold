@@ -1,108 +1,71 @@
-// Mobile Navigation
-const navLinks = document.querySelectorAll("nav a");
-
-navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.forEach(item => item.classList.remove("active"));
-        link.classList.add("active");
-    });
-});
-
-// Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth"
-        });
-    });
-});
-
-// Gallery Image Animation
-const images = document.querySelectorAll(".gallery-grid img");
-
-images.forEach(img => {
-    img.addEventListener("mouseenter", () => {
-        img.style.transform = "scale(1.05)";
-    });
-
-    img.addEventListener("mouseleave", () => {
-        img.style.transform = "scale(1)";
-    });
-});
-
-// Header Shadow on Scroll
-window.addEventListener("scroll", () => {
-    const header = document.querySelector("header");
-
-    if (window.scrollY > 50) {
-        header.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)";
-    } else {
-        header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
-    }
-});
-
-// Welcome Message
-window.addEventListener("load", () => {
-    console.log("Welcome to Sky Gold Steel Almirah");
-});
 let slideIndex = 0;
+const slides = document.querySelectorAll(".slides");
+const dots = document.querySelectorAll(".dot");
+let autoSlide;
 
-showSlides();
+function showSlide(index) {
 
-function showSlides(){
+    if (index >= slides.length) {
+        slideIndex = 0;
+    }
 
-let i;
+    if (index < 0) {
+        slideIndex = slides.length - 1;
+    }
 
-let slides=document.getElementsByClassName("slides");
+    slides.forEach(slide => {
+        slide.style.display = "none";
+    });
 
-let dots=document.getElementsByClassName("dot");
+    dots.forEach(dot => {
+        dot.classList.remove("active");
+    });
 
-for(i=0;i<slides.length;i++){
-
-slides[i].style.display="none";
-
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].classList.add("active");
 }
 
-slideIndex++;
-
-if(slideIndex>slides.length){
-
-slideIndex=1;
-
+function nextSlide() {
+    slideIndex++;
+    showSlide(slideIndex);
 }
 
-for(i=0;i<dots.length;i++){
-
-dots[i].className=dots[i].className.replace(" active","");
-
+function prevSlide() {
+    slideIndex--;
+    showSlide(slideIndex);
 }
 
-slides[slideIndex-1].style.display="block";
-
-dots[slideIndex-1].className+=" active";
-
-setTimeout(showSlides,6000);
-
+function startSlider() {
+    autoSlide = setInterval(() => {
+        slideIndex++;
+        showSlide(slideIndex);
+    }, 6000); // 6 seconds
 }
 
-document.querySelector(".prev").onclick=function(){
-
-slideIndex-=2;
-
-if(slideIndex<0){
-
-slideIndex=document.getElementsByClassName("slides").length-2;
-
+function stopSlider() {
+    clearInterval(autoSlide);
 }
 
-showSlides();
+document.querySelector(".next").addEventListener("click", () => {
+    stopSlider();
+    nextSlide();
+    startSlider();
+});
 
-}
+document.querySelector(".prev").addEventListener("click", () => {
+    stopSlider();
+    prevSlide();
+    startSlider();
+});
 
-document.querySelector(".next").onclick=function(){
+dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+        stopSlider();
+        slideIndex = index;
+        showSlide(slideIndex);
+        startSlider();
+    });
+});
 
-showSlides();
-
-}
+showSlide(slideIndex);
+startSlider();
