@@ -315,3 +315,20 @@ cursor:pointer;
 .active{
 background:#FFD700;
 }
+Cr/* Mobile Logo Fix */
+@media (max-width: 768px) {
+
+    .slider-logo,
+    .hero-logo,
+    .slide-content img {
+        position: static !important;
+        display: block;
+        margin: 0 auto 20px;
+        width: 120px;
+        height: auto;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+    }
+
+}
