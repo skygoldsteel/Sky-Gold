@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skygoldsteel.github.io/Sky-Gold/sitemap.xml
