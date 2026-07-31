@@ -229,24 +229,28 @@ font-size:32px;
 
 }
 .slider{
-position:relative;
-width:100%;
-height:90vh;
-overflow:hidden;
+    position:relative;
+    width:100%;
+    height:650px;
+    overflow:hidden;
+    background:#fff;
 }
 
 .slides{
-display:none;
-width:100%;
-height:100%;
+    display:none;
+    width:100%;
+    height:100%;
+    text-align:center;
 }
 
 .slides img{
-width:100%;
-height:100%;
-object-fit:cover;
+    width:auto;
+    max-width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    margin:auto;
 }
-
 .fade{
 animation:fade 1s;
 }
@@ -330,5 +334,35 @@ Cr/* Mobile Logo Fix */
         left: auto !important;
         top: auto !important;
     }
+
+}
+@media (max-width:768px){
+
+.slider{
+    height:420px;
+}
+
+.slides img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.hero-logo{
+    width:90px;
+}
+
+.caption{
+    width:90%;
+    padding:20px;
+}
+
+.caption h1{
+    font-size:32px;
+}
+
+.caption p{
+    font-size:16px;
+}
 
 }
